@@ -1,0 +1,45 @@
+version: '2'
+services:
+
+  postgres:
+    image: postgres:9.6.1
+#    env_file:
+#      - ./service-registry.env
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "pgdb"
+    ports:
+      - "5432:5432"
+    networks:
+      - mgd-network
+    volumes:
+      - /data/postgresql:/var/lib/postgresql/data
+    restart: always
+    
+  frontend:
+    image: mgd_web
+    ports:
+      - "3201:4200"
+    networks:
+      - mgd-network
+    volumes:
+      - /c/Users/Yossi/workspace/Angular/hello-world:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
+    
+  backend:
+    image: mgd-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - mgd-network
+    volumes:
+      - /c/Users/Yossi/workspace/mgd.backend:/usr/src/app
+    restart: always
+
+
+networks:
+  mgd-network:
+    driver: bridge
+
