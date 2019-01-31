@@ -13,18 +13,18 @@ services:
       - "5432:5432"
     networks:
       - mgd-network
-    volumes:
-      - /data/postgresql:/var/lib/postgresql/data
+#    volumes:
+#      - /data/postgresql:/var/lib/postgresql/data
     restart: always
     
   frontend:
-    image: mgd_web
+    image: mgd-frontend
     ports:
       - "3201:4200"
     networks:
       - mgd-network
     volumes:
-      - /c/Users/Yossi/workspace/Angular/hello-world:/usr/src/app
+      - ~/mgd/mgd.frontend:/usr/src/app
       - /usr/src/app/node_modules
     restart: always
     
@@ -35,7 +35,7 @@ services:
     networks:
       - mgd-network
     volumes:
-      - /c/Users/Yossi/workspace/mgd.backend:/usr/src/app
+      - ~/mgd/mgd.backend:/usr/src/app
     restart: always
 
 
